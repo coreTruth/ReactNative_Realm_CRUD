@@ -66,8 +66,8 @@ export class App extends React.Component {
     }
   }
 
-  deleteData(dataId, tableID) {
-    let testDatabase = db.delete(dataId, tableID);
+  deleteData(recordID, childID) {
+    let testDatabase = db.delete(recordID, childID);
     datas = testDatabase;
     this.setState({ isLoaded: true });
     // if (this.state.isLoaded == false) {
@@ -78,6 +78,12 @@ export class App extends React.Component {
 
   addNewData = () => {
     this.setState({ db: db.create() });
+  }
+
+  updateData(recordID) {
+    let testDatabase = db.update(recordID);
+    datas = testDatabase;
+    this.setState({ isLoaded: true });
   }
 
   renderItem = ({ item }) => {
@@ -95,7 +101,7 @@ export class App extends React.Component {
           <TouchableOpacity onPress={() => { this.deleteData(item.id, 0) }} style={{ borderTopWidth: 1, backgroundColor: 'red' }}><Text style={{ color: "#fff", textAlign: 'center' }}>Delete Row</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => { this.deleteData(item.id, 1) }} style={{ borderTopWidth: 1, backgroundColor: 'red' }}><Text style={{ color: "#fff", textAlign: 'center' }}>Delete Shifts</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => { this.deleteData(item.id, 2) }} style={{ borderTopWidth: 1, backgroundColor: 'red' }}><Text style={{ color: "#fff", textAlign: 'center' }}>Delete ClockOut</Text></TouchableOpacity>
-
+          <TouchableOpacity onPress={() => { this.updateData(item.id) }} style={{ borderTopWidth: 1, backgroundColor: 'red' }}><Text style={{ color: "#fff", textAlign: 'center' }}>Update dayPlan</Text></TouchableOpacity>
         </View>
       );
     }
